@@ -7,6 +7,7 @@
     <RemainingTime :arrival-time="arrivalTime"/>
     <RecommendedList :recommended="recommended"/>
     <SpotDetail :spot="spot"/>
+    <Timelimit :limit="arrivalTime"/>
   </div>
 </template>
 
@@ -17,6 +18,7 @@
   import RemainingTime from './components/part/RemainingTime.vue';
   import RecommendedList from './components/part/RecommendedList.vue';
   import SpotDetail from './components/part/SpotDetail.vue';
+  import Timelimit from './components/part/Timelimit.vue';
 
   @Component({
     components: {
@@ -25,6 +27,7 @@
       RemainingTime,
       RecommendedList,
       SpotDetail,
+      Timelimit
     },
   })
   export default class App extends Vue {

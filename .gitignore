@@ -1,0 +1,17 @@
+node_modules
+dist
+build
+out
+*.log
+.npmrc
+
+# intellij
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# vscode
+.vscode/

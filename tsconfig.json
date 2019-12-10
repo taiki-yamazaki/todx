@@ -1,0 +1,25 @@
+﻿{
+  "compilerOptions": {
+    "module": "commonjs",
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "esModuleInterop": true,
+    "target": "es2015",
+    "moduleResolution": "node",
+    "outDir": "./out/js",
+    "sourceMap": true,
+    "jsx": "react",
+    "jsxFactory": "h",
+    "lib": ["dom", "es2019"]
+  },
+  "include": [
+    "src/ts/**/*.ts",
+    "src/ts/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

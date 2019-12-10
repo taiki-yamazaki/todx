@@ -1,0 +1,36 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "no-inferrable-types": [true, "ignore-params", "ignore-properties"],
+    "member-access": [true, "check-accessor"],
+
+    "interface-name": [true, "never-prefix"],
+    "variable-name": [
+      true,
+      "check-format",
+      "ban-keywords",
+      "allow-leading-underscore",
+      "allow-trailing-underscore",
+      "allow-pascal-case"
+    ],
+    "curly": [true, "ignore-same-line"],
+    "array-type": [true, "generic"],
+
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "member-ordering": false,
+    "arrow-parens": false,
+    "no-shadowed-variable": false,
+    "no-console": false,
+    "no-empty": [true, "allow-empty-functions"],
+    "no-bitwise": false,
+    "no-empty-interface": false
+  },
+  "linterOptions": {
+    "exclude": [
+      "dist/**",
+      "build/**",
+      "**/*.json"
+    ]
+  }
+}

@@ -6,6 +6,7 @@
     <Destination :address="destAddress" :arrival-time="arrivalTime"/>
     <RemainingTime :arrival-time="arrivalTime"/>
     <RecommendedList :recommended="recommended"/>
+    <SpotDetail :spot="spot"/>
   </div>
 </template>
 
@@ -15,13 +16,15 @@
   import Destination from './components/part/DestinationPlace.vue';
   import RemainingTime from './components/part/RemainingTime.vue';
   import RecommendedList from './components/part/RecommendedList.vue';
+  import SpotDetail from './components/part/SpotDetail.vue';
 
   @Component({
     components: {
       Origin,
       Destination,
       RemainingTime,
-      RecommendedList
+      RecommendedList,
+      SpotDetail,
     },
   })
   export default class App extends Vue {
@@ -36,6 +39,17 @@
       {name: "観光地C", category: "green"},
       {name: "観光地D", category: "orange"},
     ];
+
+    private spot = {
+      name: "勝連城",
+      category: "green",
+      recommendedStayMinutes: 30,
+      description: "15世紀、海外貿易により勝連に繁栄をもたらした阿麻和利が居城したとして有名な勝連城。\n" +
+        "\n" +
+        "2000年にユネスコの世界遺産に登録されました。\n" +
+        "\n" +
+        "自然の断崖を利用した難攻不落の城と言われる勝連城ですが、その城壁は優雅な曲線を描き、女性的な美しさを感じさせます。頂上に登ると太平洋に輝く青い海が一望できる沖縄有数の景勝地です。"
+    };
 
     private plus6Hour(time: Date): Date {
       const next = new Date(time.getTime());

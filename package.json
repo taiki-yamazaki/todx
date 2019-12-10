@@ -1,52 +1,31 @@
 {
   "name": "todx",
-  "version": "1.0.0",
-  "description": "OTTOP hackason",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "clean": "rimraf dist out",
-    "build": "webpack --display-error-details --progress --color --mode production",
-    "webpack": "webpack --display-error-details --progress --color --mode development",
-    "watch": "webpack --display-error-details --progress --color --watch --mode development",
-    "dev": "webpack-dev-server --progress --colors --hot --content-base ./dist --mode development",
-    "test": "jest"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
   },
-  "repository": "git+https://github.com/taiki-yamazaki/todx.git",
-  "keywords": [],
-  "author": "taiki-yamazaki<taiki.yamazaki@okinawaopenlabs.org>",
-  "license": "Okinawa open laboratory",
-  "bugs": {
-    "url": "https://github.com/taiki-yamazaki/todx/issues"
-  },
-  "homepage": "https://github.com/taiki-yamazaki/todx#readme",
   "dependencies": {
-    "@types/google-maps": "^3.2.1",
-    "google-maps": "^3.3.0"
+    "core-js": "^3.4.3",
+    "vue": "^2.6.10",
+    "vue-class-component": "^7.0.2",
+    "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "copy-webpack-plugin": "^5.0.5",
-    "jest": "^24.9.0",
-    "rimraf": "^3.0.0",
-    "ts-jest": "^24.2.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "^3.7.3",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.9.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx",
-      "ts",
-      "tsx"
-    ],
-    "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    },
-    "testMatch": [
-      "<rootDir>/test/**/*.(test|spec).(ts|tsx|js|jsx)"
-    ]
+    "@types/jest": "^24.0.19",
+    "@vue/cli-plugin-babel": "^4.1.0",
+    "@vue/cli-plugin-eslint": "^4.1.0",
+    "@vue/cli-plugin-typescript": "^4.1.0",
+    "@vue/cli-plugin-unit-jest": "^4.1.0",
+    "@vue/cli-service": "^4.1.0",
+    "@vue/eslint-config-typescript": "^4.0.0",
+    "@vue/test-utils": "1.0.0-beta.29",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "typescript": "~3.5.3",
+    "vue-template-compiler": "^2.6.10"
   }
 }

@@ -1,29 +1,40 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <h1>パーツリスト</h1>
+    <img alt="logo" src="./assets/logo.png">
+    <Origin :address="originAddress"/>
+    <Destination :address="destAddress" :arrival-time="arrivalTime"/>
+    <RemainingTime :arrival-time="arrivalTime"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import HelloWorld from './components/HelloWorld.vue';
+  import {Component, Vue} from 'vue-property-decorator';
+  import Origin from './components/part/OriginPlace.vue';
+  import Destination from './components/part/DestinationPlace.vue';
+  import RemainingTime from './components/part/RemainingTime.vue';
 
-@Component({
-  components: {
-    HelloWorld,
-  },
-})
-export default class App extends Vue {}
+  @Component({
+    components: {
+      Origin,
+      Destination,
+      RemainingTime
+    },
+  })
+  export default class App extends Vue {
+    private originAddress = "現在位置の住所";
+
+    private destAddress = "目的地の住所";
+    private arrivalTime = this.plus6Hour(new Date());
+
+    private plus6Hour(time: Date): Date {
+      const next = new Date(time.getTime());
+      next.setHours(next.getHours() + 6);
+      return next;
+    }
+
+  }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

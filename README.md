@@ -1,4 +1,6 @@
 # ToDx
+![ToDx](https://raw.githubusercontent.com/taiki-yamazaki/todx/master/src/assets/logo.png "logo")
+
 OTTOP hackason 空き時間有効活用アプリ
 
 ## Project setup

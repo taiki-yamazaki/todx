@@ -4,12 +4,12 @@
       <GoogleMap :from="origin" :to="dest" :spots="spots" :routes="routes" @selected="handleSpotSelect"/>
     </section>
     <section class="left-panel">
+      <div class="dot"></div>
       <Origin v-if="origin" :address="origin.name"/>
       <Waypoint v-for="spot in waypoints" :key="'w_' + spot.name" :spot="spot"/>
       <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
       <i v-if="!selected" class="add material-icons" onclick="console.log('click')">add_circle</i>
-      <SpotDetail v-if="selected" :spot="selected" @register="handleRegister"/>
-
+      <SpotDetail v-if="selected" :spot="selected" @register="handleRegister" @close="handleSpotUnselect"/>
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
     </section>
   </div>
@@ -70,6 +70,10 @@
       this.selected = spot;
     }
 
+    public handleSpotUnselect(): void {
+      this.selected = null;
+    }
+
     public handleRegister(spot: Spot): void {
       this.selected = null;
       this.waypoints.push(spot);
@@ -103,6 +107,15 @@
     z-index: -1;
     width: 100vw;
     height: 100vh;
+  }
+
+  .dot {
+    position: absolute;
+    left: 30px;
+    border-left: 10px dashed #4caf50;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
   }
 
   .left-panel {

@@ -1,11 +1,14 @@
 <template>
   <div class="block">
-    <h1><i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}</h1>
-    <iframe class="thumbnail" :src="streetMapUrl" />
+    <h1>
+      <i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}
+      <i class="close right material-icons" @click="handleClose">close</i>
+    </h1>
+    <iframe class="thumbnail" :src="streetMapUrl"/>
     <pre class="description">{{spot.description}}</pre>
     <div class="footer">
       <h2 class="time">滞在目安：{{stayTime}}</h2>
-      <a class="button big" @click="handleSubmit">登録</a>
+      <a class="button big right" @click="handleSubmit">登録</a>
     </div>
   </div>
 </template>
@@ -35,11 +38,19 @@
     }
 
     @Emit()
-    public register(spot: Spot): void {
+    public register(spot: Spot | null): void {
     }
 
-    public handleSubmit(){
+    public handleSubmit() {
       this.register(this.spot as any);
+    }
+
+    @Emit()
+    public close(): void {
+    }
+
+    public handleClose() {
+      this.close();
     }
 
     public zeroPadding(num: Number): string {
@@ -109,7 +120,6 @@
     color: #000000;
     text-align: center;
     transition: all 0.2s;
-    float: right;
   }
 
   a.button:hover {
@@ -119,5 +129,9 @@
 
   .big {
     font-size: 1.3rem;
+  }
+
+  .right {
+    float: right;
   }
 </style>

@@ -1,30 +1,19 @@
 <template>
   <div class="block">
+    経由地<br/>
     <h1><i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}</h1>
-    <iframe class="thumbnail" :src="streetMapUrl" />
-    <pre class="description">{{spot.description}}</pre>
-    <div class="footer">
-      <h2 class="time">滞在目安：{{stayTime}}</h2>
-      <a class="button big" @click="handleSubmit">登録</a>
-    </div>
+    <h2 class="time">滞在時間：{{stayTime}}</h2>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Emit, Prop, Vue} from "vue-property-decorator";
+  import {Component, Prop, Vue} from "vue-property-decorator";
   import {Spot} from "@/ToDxService";
 
   @Component
-  export default class SpotDetail extends Vue {
+  export default class Waypoint extends Vue {
     @Prop()
     private spot?: Spot;
-
-    public get streetMapUrl(): string {
-      if (!this.spot) return "";
-      return "https://www.google.com/maps/embed/v1/streetview" +
-        `?key=${process.env.VUE_APP_GOOGLE_MAPS_API_KEY}` +
-        "&location=" + `${this.spot.position.lat},${this.spot.position.lng}`;
-    }
 
     public get stayTime(): string {
       if (!this.spot) return "00:30";
@@ -32,14 +21,6 @@
       const hours = Math.floor(this.spot.recommendedStayMinutes / (60));
       const minutes = Math.floor(hours * 60 - this.spot.recommendedStayMinutes);
       return `${this.zeroPadding(hours)}:${this.zeroPadding(minutes)}`;
-    }
-
-    @Emit()
-    public register(spot: Spot): void {
-    }
-
-    public handleSubmit(){
-      this.register(this.spot as any);
     }
 
     public zeroPadding(num: Number): string {

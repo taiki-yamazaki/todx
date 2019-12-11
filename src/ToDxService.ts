@@ -2,9 +2,11 @@ export type P = { lat: number, lng: number };
 
 export type Spot = {
   name: string;
+  category?: string;
   position: P;
   description?: string;
   url?: string;
+  recommendedStayMinutes?: number;
 }
 
 export async function fetchSpots(p: P): Promise<Array<Spot>> {

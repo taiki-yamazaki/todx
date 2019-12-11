@@ -5,9 +5,11 @@
     </section>
     <section class="left-panel">
       <Origin v-if="origin" :address="origin.name"/>
+      <Waypoint v-for="spot in waypoints" :key="'w_' + spot.name" :spot="spot"/>
       <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
       <i v-if="!selected" class="add material-icons" onclick="console.log('click')">add_circle</i>
-      <SpotDetail v-if="selected" :spot="selected" />
+      <SpotDetail v-if="selected" :spot="selected" @register="handleRegister"/>
+
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
     </section>
   </div>
@@ -23,6 +25,7 @@
   import Timelimit from './components/part/Timelimit.vue';
   import GoogleMap from "@/components/part/GoogleMap.vue";
   import {fetchRoutes, fetchSpots, Route, Spot} from "@/ToDxService";
+  import Waypoint from "@/components/part/Waypoint.vue";
 
   export type P = {
     lat: number,
@@ -31,6 +34,7 @@
 
   @Component({
     components: {
+      Waypoint,
       GoogleMap,
       Origin,
       Destination,
@@ -50,6 +54,7 @@
     private arrivalTime = this.plus6Hour(new Date());
 
     private spots: Array<Spot> = [];
+    private waypoints: Array<Spot> = [];
     private routes: Array<Route> = [];
 
     private selected: Spot | null = null;
@@ -63,6 +68,11 @@
 
     public handleSpotSelect(spot: Spot): void {
       this.selected = spot;
+    }
+
+    public handleRegister(spot: Spot): void {
+      this.selected = null;
+      this.waypoints.push(spot);
     }
 
     @Watch('origin')

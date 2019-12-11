@@ -4,7 +4,7 @@
       <GoogleMap :from="origin" :to="dest" :spots="spots"/>
     </section>
     <section class="left-panel">
-      <Origin :address="origin.name"/>
+      <Origin v-if="origin" :address="origin.name"/>
       <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
       <i class="add material-icons" onclick="console.log('click')">add_circle</i>
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-  import {Component, Vue} from 'vue-property-decorator';
+  import {Component, Vue, Watch} from 'vue-property-decorator';
   import Origin from './components/part/OriginPlace.vue';
   import Destination from './components/part/DestinationPlace.vue';
   import RemainingTime from './components/part/RemainingTime.vue';
@@ -21,6 +21,7 @@
   import SpotDetail from './components/part/SpotDetail.vue';
   import Timelimit from './components/part/Timelimit.vue';
   import GoogleMap from "@/components/part/GoogleMap.vue";
+  import {fetchSpots, Spot} from "@/ToDxService";
 
   export type P = {
     lat: number,
@@ -39,10 +40,7 @@
     },
   })
   export default class App extends Vue {
-    private origin = {
-      name: "フェリーよなくに乗り場",
-      position: {lat: 24.334922, lng: 124.157306},
-    };
+    private origin: Spot = {name: "empty", position: {lat: 0, lng: 0}};
 
     private dest = {
       name:  "上原港 Uehara Port",
@@ -50,24 +48,20 @@
     };
     private arrivalTime = this.plus6Hour(new Date());
 
-    private spots = [
-      {
-        name:  "spot A",
-        position: {lat: 24.428112, lng: 123.799968},
-      },
-      {
-        name:  "spot B",
-        position: {lat: 24.418412, lng: 123.899878},
-      },
-      {
-        name:  "spot C",
-        position: {lat: 24.418302, lng: 123.809868},
-      },
-      {
-        name:  "spot D",
-        position: {lat: 24.354922, lng: 124.157306},
-      }
-    ];
+    private spots: Array<Spot> = [];
+
+    public mounted(): void {
+      this.origin = {
+        name: "フェリーよなくに乗り場",
+        position: {lat: 24.334922, lng: 124.157306},
+      };
+    }
+
+    @Watch('origin')
+    originChanged(next: any, prev: any) {
+      fetchSpots(next.position)
+        .then(spots => this.spots = spots);
+    }
 
     private plus6Hour(time: Date): Date {
       const next = new Date(time.getTime());

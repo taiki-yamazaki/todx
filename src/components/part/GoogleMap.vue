@@ -72,7 +72,7 @@
             markers.push({
               position: s.position,
               animation: this.google.maps.Animation.DROP,
-              title: s.title,
+              title: s.name,
               icon: "http://maps.google.com/mapfiles/ms/micons/green-dot.png"
             })
           })

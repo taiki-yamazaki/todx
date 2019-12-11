@@ -7,7 +7,7 @@ Vue.config.productionTip = false;
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: 'YOUR_API_TOKEN',
+    key: 'YOUR API KEY',
     libraries: 'places',
   },
 });
@@ -15,5 +15,3 @@ Vue.use(VueGoogleMaps, {
 new Vue({
   render: h => h(App),
 }).$mount('#app');
-
-

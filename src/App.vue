@@ -8,6 +8,7 @@
     <RecommendedList :recommended="recommended"/>
     <SpotDetail :spot="spot"/>
     <Timelimit :limit="arrivalTime"/>
+    <GoogleMap/>
   </div>
 </template>
 
@@ -19,9 +20,11 @@
   import RecommendedList from './components/part/RecommendedList.vue';
   import SpotDetail from './components/part/SpotDetail.vue';
   import Timelimit from './components/part/Timelimit.vue';
+  import GoogleMap from "@/components/part/GoogleMap.vue";
 
   @Component({
     components: {
+      GoogleMap,
       Origin,
       Destination,
       RemainingTime,

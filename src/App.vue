@@ -1,14 +1,14 @@
 <template>
   <div id="app">
-    <h1>パーツリスト</h1>
-    <img alt="logo" src="./assets/logo.png">
-    <Origin :address="originAddress"/>
-    <Destination :address="destAddress" :arrival-time="arrivalTime"/>
-    <RemainingTime :arrival-time="arrivalTime"/>
-    <RecommendedList :recommended="recommended"/>
-    <SpotDetail :spot="spot"/>
-    <Timelimit :limit="arrivalTime"/>
-    <GoogleMap/>
+    <section class="map">
+      <GoogleMap :from="origin" :to="dest" :spots="spots"/>
+    </section>
+    <section class="left-panel">
+      <Origin :address="origin.name"/>
+      <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
+      <i class="add material-icons" onclick="console.log('click')">add_circle</i>
+      <Destination :address="dest.name" :arrival-time="arrivalTime"/>
+    </section>
   </div>
 </template>
 
@@ -22,6 +22,11 @@
   import Timelimit from './components/part/Timelimit.vue';
   import GoogleMap from "@/components/part/GoogleMap.vue";
 
+  export type P = {
+    lat: number,
+    lng: number,
+  };
+
   @Component({
     components: {
       GoogleMap,
@@ -34,38 +39,65 @@
     },
   })
   export default class App extends Vue {
-    private originAddress = "現在位置の住所";
+    private origin = {
+      name: "フェリーよなくに乗り場",
+      position: {lat: 24.334922, lng: 124.157306},
+    };
 
-    private destAddress = "目的地の住所";
+    private dest = {
+      name:  "上原港 Uehara Port",
+      position: {lat: 24.418302, lng: 123.799868},
+    };
     private arrivalTime = this.plus6Hour(new Date());
 
-    private recommended = [
-      {name: "観光地A", category: "food"},
-      {name: "観光地B", category: "red"},
-      {name: "観光地C", category: "green"},
-      {name: "観光地D", category: "orange"},
+    private spots = [
+      {
+        name:  "spot A",
+        position: {lat: 24.428112, lng: 123.799968},
+      },
+      {
+        name:  "spot B",
+        position: {lat: 24.418412, lng: 123.899878},
+      },
+      {
+        name:  "spot C",
+        position: {lat: 24.418302, lng: 123.809868},
+      },
+      {
+        name:  "spot D",
+        position: {lat: 24.354922, lng: 124.157306},
+      }
     ];
-
-    private spot = {
-      name: "勝連城",
-      category: "green",
-      recommendedStayMinutes: 30,
-      position: {lat: 26.330397, lng: 127.8790449},
-      description: "15世紀、海外貿易により勝連に繁栄をもたらした阿麻和利が居城したとして有名な勝連城。\n" +
-        "\n" +
-        "2000年にユネスコの世界遺産に登録されました。\n" +
-        "\n" +
-        "自然の断崖を利用した難攻不落の城と言われる勝連城ですが、その城壁は優雅な曲線を描き、女性的な美しさを感じさせます。頂上に登ると太平洋に輝く青い海が一望できる沖縄有数の景勝地です。"
-    };
 
     private plus6Hour(time: Date): Date {
       const next = new Date(time.getTime());
       next.setHours(next.getHours() + 6);
       return next;
     }
-
   }
 </script>
 
-<style>
+<style scoped>
+  .map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .left-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 500px;
+    user-select: none;
+  }
+
+  .add {
+    display: block;
+    text-align: center;
+    font-size: 4rem;
+  }
 </style>

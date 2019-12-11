@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <section class="map">
-      <GoogleMap :from="origin" :to="dest" :spots="spots"/>
+      <GoogleMap :from="origin" :to="dest" :spots="spots" :routes="routes"/>
     </section>
     <section class="left-panel">
       <Origin v-if="origin" :address="origin.name"/>
@@ -21,7 +21,7 @@
   import SpotDetail from './components/part/SpotDetail.vue';
   import Timelimit from './components/part/Timelimit.vue';
   import GoogleMap from "@/components/part/GoogleMap.vue";
-  import {fetchSpots, Spot} from "@/ToDxService";
+  import {fetchRoutes, fetchSpots, Route, Spot} from "@/ToDxService";
 
   export type P = {
     lat: number,
@@ -49,6 +49,7 @@
     private arrivalTime = this.plus6Hour(new Date());
 
     private spots: Array<Spot> = [];
+    private routes: Array<Route> = [];
 
     public mounted(): void {
       this.origin = {
@@ -61,6 +62,12 @@
     originChanged(next: any, prev: any) {
       fetchSpots(next.position)
         .then(spots => this.spots = spots);
+    }
+
+    @Watch('origin')
+    fetchRoute(next: any, prev: any) {
+      fetchRoutes(next.position, this.dest.position, this.arrivalTime)
+        .then(routes => this.routes = routes);
     }
 
     private plus6Hour(time: Date): Date {

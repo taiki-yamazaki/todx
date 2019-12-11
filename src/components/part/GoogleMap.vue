@@ -6,10 +6,8 @@
       map-type-id="terrain"
       style="width: 100vw; height: 100vh"
   >
-    <gmap-polyline v-bind:path.sync="paths" v-bind:options="{ strokeColor:'#008000'}"></gmap-polyline>
-
     <GmapMarker
-        :key="index"
+        :key="'m_' + index"
         v-for="(m, index) in markers"
         :position="m.position"
         :clickable="true"
@@ -20,11 +18,22 @@
         @click="center=m.position"
     />
 
+    <GmapPolyline
+        v-for="(r, index) in routes"
+        :key="'r_' + index"
+        :path="decodePolyline(r.polyline)"
+        :options="{ strokeColor: strokeColor(r.mode)}"
+    />
   </GmapMap>
 </template>
 
 <script>
   import {gmapApi} from 'vue2-google-maps';
+
+  export const COLORS = {
+    WALK: "#ff9800",
+    FERRY: "#3f51b5"
+  };
 
   export default {
     name: "GoogleMap",
@@ -82,19 +91,16 @@
     },
 
     data() {
-      return {
-        paths: [{lat: 26.2100063, lng: 127.675507}, {lat: 27.2100063, lng: 127.675507}, {
-          lat: 26.2100063,
-          lng: 125.675507
-        }]
-      };
+      return {};
     },
 
     methods: {
-      testFunc: function () {
-        // var encodeString = this.google.maps.geometry.encoding.decodePath("ampsCg~wtVG?C]C]Ca@C_@c@BKyAM{Ae@F");
-        // console.log(this.google);
-        // console.log(encodeString);
+      decodePolyline: function (encoded) {
+        return this.google.maps.geometry.encoding.decodePath(encoded);
+      },
+      strokeColor: function (mode) {
+        const color = COLORS[mode];
+        return color || "#4caf50";
       },
     },
   };

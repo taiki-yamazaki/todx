@@ -32,7 +32,8 @@
 
   export const COLORS = {
     WALK: "#ff9800",
-    FERRY: "#3f51b5"
+    BUS: "#8bc34a",
+    FERRY: "#3f51b5",
   };
 
   export default {

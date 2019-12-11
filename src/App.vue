@@ -48,7 +48,7 @@
     private origin: Spot = {name: "empty", position: {lat: 0, lng: 0}};
 
     private dest = {
-      name:  "上原港 Uehara Port",
+      name: "上原港 Uehara Port",
       position: {lat: 24.418302, lng: 123.799868},
     };
     private arrivalTime = this.plus6Hour(new Date());
@@ -79,16 +79,49 @@
       this.waypoints.push(spot);
     }
 
+    public fetchRecommendedSpots(p: P): void {
+      fetchSpots(p)
+        .then(spots => this.spots = spots);
+    }
+
     @Watch('origin')
     originChanged(next: any, prev: any) {
-      fetchSpots(next.position)
-        .then(spots => this.spots = spots);
+      this.fetchRecommendedSpots(next.position);
+    }
+
+    @Watch('waypoints')
+    waypointsChanged(next: any, prev: any) {
+      if (next.length === 0) this.fetchRecommendedSpots(this.origin.position);
+      this.fetchRecommendedSpots(next.slice(-1)[0].position);
     }
 
     @Watch('origin')
     fetchRoute(next: any, prev: any) {
       fetchRoutes(next.position, this.dest.position, this.arrivalTime)
         .then(routes => this.routes = routes);
+    }
+
+    @Watch('waypoints')
+    fetchRoutes(next: any, prev: any) {
+      const arr = [this.origin];
+      arr.push(...this.waypoints);
+      arr.push(this.dest);
+
+      const pairs = [];
+      for (let i = 0; i < arr.length - 1; i++) {
+        pairs.push([arr[i], arr[i + 1]]);
+      }
+      console.log(pairs);
+      Promise.all(
+        pairs.map(p => fetchRoutes(p[0].position, p[1].position, new Date(1576119600000)))
+      )
+        .then(results => {
+          return results.flatMap(r => r);
+        })
+        .then((routes: any) => {
+          console.log(routes);
+          this.routes = routes
+        });
     }
 
     private plus6Hour(time: Date): Date {

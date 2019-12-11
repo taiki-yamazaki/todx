@@ -32,7 +32,7 @@ export async function fetchSpots(p: P): Promise<Array<Spot>> {
 
 
 export type Route = {
-  mode: "WALK" | "FERRY";
+  mode: "WALK" | "BUS" | "FERRY";
   polyline: string;
 }
 

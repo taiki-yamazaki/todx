@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <section class="map">
-      <GoogleMap :from="origin" :to="dest" :spots="spots" :routes="routes"/>
+      <GoogleMap :from="origin" :to="dest" :spots="spots" :routes="routes" @selected="handleSpotSelect"/>
     </section>
     <section class="left-panel">
       <Origin v-if="origin" :address="origin.name"/>
       <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
-      <i class="add material-icons" onclick="console.log('click')">add_circle</i>
+      <i v-if="!selected" class="add material-icons" onclick="console.log('click')">add_circle</i>
+      <SpotDetail v-if="selected" :spot="selected" />
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
     </section>
   </div>
@@ -51,11 +52,17 @@
     private spots: Array<Spot> = [];
     private routes: Array<Route> = [];
 
+    private selected: Spot | null = null;
+
     public mounted(): void {
       this.origin = {
         name: "フェリーよなくに乗り場",
         position: {lat: 24.334922, lng: 124.157306},
       };
+    }
+
+    public handleSpotSelect(spot: Spot): void {
+      this.selected = spot;
     }
 
     @Watch('origin')

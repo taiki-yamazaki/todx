@@ -15,7 +15,7 @@
         :title="m.title"
         :icon="m.icon"
         :label="m.label"
-        @click="center=m.position"
+        @click="select(m)"
     />
 
     <GmapPolyline
@@ -64,7 +64,8 @@
           markers.push({
             position: this.from.position,
             animation: this.google.maps.Animation.DROP,
-            title: this.from.name
+            title: this.from.name,
+            spot: this.from
           });
         }
 
@@ -72,7 +73,8 @@
           markers.push({
             position: this.to.position,
             animation: this.google.maps.Animation.DROP,
-            title: this.to.name
+            title: this.to.name,
+            spot: this.to
           })
         }
 
@@ -82,7 +84,8 @@
               position: s.position,
               animation: this.google.maps.Animation.DROP,
               title: s.name,
-              icon: "http://maps.google.com/mapfiles/ms/micons/green-dot.png"
+              icon: "http://maps.google.com/mapfiles/ms/micons/green-dot.png",
+              spot: s
             })
           })
         }
@@ -102,6 +105,9 @@
         const color = COLORS[mode];
         return color || "#4caf50";
       },
+      select: function (marker) {
+        this.$emit("selected", marker.spot);
+      }
     },
   };
 

@@ -34,6 +34,7 @@
 
     public get stayTime(): string {
       if (!this.spot) return "00:30";
+      if (!this.spot.recommendedStayMinutes) return "00:30";
       const hours = Math.floor(this.spot.recommendedStayMinutes / (60));
       const minutes = Math.floor(hours * 60 - this.spot.recommendedStayMinutes);
       return `${this.zeroPadding(hours)}:${this.zeroPadding(minutes)}`;
@@ -51,6 +52,7 @@
     border: 1px solid #1b0000;
     border-radius: 8px;
     padding: 8px;
+    background-color: #fafafa;
   }
 
   .description {

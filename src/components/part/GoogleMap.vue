@@ -49,7 +49,7 @@ export default {
     methods: {
       testFunc:function(){
         var encodeString = this.google.maps.geometry.encoding.decodePath("ampsCg~wtVG?C]C]Ca@C_@c@BKyAM{Ae@F");
-        //console.log(this.google);
+        console.log(this.google);
         console.log(encodeString);
       },
     },

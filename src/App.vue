@@ -47,6 +47,7 @@
       name: "勝連城",
       category: "green",
       recommendedStayMinutes: 30,
+      position: {lat: 26.330397, lng: 127.8790449},
       description: "15世紀、海外貿易により勝連に繁栄をもたらした阿麻和利が居城したとして有名な勝連城。\n" +
         "\n" +
         "2000年にユネスコの世界遺産に登録されました。\n" +

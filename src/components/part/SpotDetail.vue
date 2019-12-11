@@ -1,6 +1,7 @@
 <template>
   <div class="block">
     <h1><i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}</h1>
+    <iframe class="thumbnail" :src="streetMapUrl" />
     <pre class="description">{{spot.description}}</pre>
     <div class="footer">
       <h2 class="time">滞在目安：{{stayTime}}</h2>
@@ -15,6 +16,7 @@
     name: string;
     category: string;
     description: string;
+    position: {lat: number, lng: number};
     recommendedStayMinutes: number;
   }
 
@@ -23,8 +25,14 @@
     @Prop()
     private spot?: Item;
 
+    public get streetMapUrl(): string {
+      if (!this.spot) return "";
+      return "https://www.google.com/maps/embed/v1/streetview" +
+        `?key=${process.env.VUE_APP_GOOGLE_MAPS_API_KEY}` +
+        "&location=" + `${this.spot.position.lat},${this.spot.position.lng}`;
+    }
+
     public get stayTime(): string {
-      console.log("");
       if (!this.spot) return "00:30";
       const hours = Math.floor(this.spot.recommendedStayMinutes / (60));
       const minutes = Math.floor(hours * 60 - this.spot.recommendedStayMinutes);
@@ -76,5 +84,11 @@
 
   .orange {
     color: #ff5722;
+  }
+
+  .thumbnail {
+    border: none;
+    width: 100%;
+    height: 500px;
   }
 </style>

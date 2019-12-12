@@ -48,8 +48,8 @@
     private origin: Spot = {name: "empty", position: {lat: 0, lng: 0}};
 
     private dest = {
-      name: "上原港 Uehara Port",
-      position: {lat: 24.418302, lng: 123.799868},
+      name: "南城市役所",
+      position: {lat: 26.1642434, lng:127.7698106},
     };
     private arrivalTime = this.plus6Hour(new Date());
 
@@ -61,8 +61,8 @@
 
     public mounted(): void {
       this.origin = {
-        name: "フェリーよなくに乗り場",
-        position: {lat: 24.334922, lng: 124.157306},
+        name: "南城市役所",
+        position: {lat: 26.1642434, lng:127.7698106},
       };
     }
 

@@ -37,8 +37,8 @@
   };
 
   export const ICONS = {
-    spot: "http://maps.google.com/mapfiles/ms/micons/blue-dot.png",
-    food: "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png"
+    spot: "http://maps.google.com/mapfiles/ms/micons/green-dot.png",
+    food: "http://maps.google.com/mapfiles/ms/micons/orange-dot.png"
   };
 
   export default {
@@ -113,7 +113,7 @@
       },
       markerIcon: function (spot) {
         const icon = ICONS[spot.category];
-        return icon || "http://maps.google.com/mapfiles/ms/micons/green-dot.png";
+        return icon || "http://maps.google.com/mapfiles/ms/micons/yellow-dot.png";
       },
       select: function (marker) {
         this.$emit("selected", marker.spot);

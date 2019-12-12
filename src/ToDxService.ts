@@ -36,7 +36,20 @@ export async function fetchSpots2(p: P): Promise<Array<Spot>> {
     `&longitude=${p.lng}` +
     `&seconds=360000` +
     `&departure_time=1200`)
-    .then(res => res.json());
+    .then(res => res.json())
+    .then(spots => {
+      return spots.map((s: any) => {
+        return {
+          name: s.name,
+          category: s.category,
+          position: {
+            lat: parseFloat(s.latitude),
+            lng: parseFloat(s.longitude)
+          },
+          url: s.url
+        }
+      })
+    });
 }
 
 

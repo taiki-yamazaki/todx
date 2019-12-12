@@ -23,8 +23,8 @@
   import SpotDetail from './components/part/SpotDetail.vue';
   import Timelimit from './components/part/Timelimit.vue';
   import GoogleMap from "@/components/part/GoogleMap.vue";
-  import {fetchRoutes, fetchSpots, Route, Spot} from "@/ToDxService";
   import Waypoint from "@/components/part/Waypoint.vue";
+  import {fetchRoutes, fetchSpots2, Route, Spot} from "@/ToDxService";
 
   export type P = {
     lat: number,
@@ -84,7 +84,7 @@
     }
 
     public fetchRecommendedSpots(p: P): void {
-      fetchSpots(p)
+      fetchSpots2(p)
         .then(spots => this.spots = spots);
     }
 

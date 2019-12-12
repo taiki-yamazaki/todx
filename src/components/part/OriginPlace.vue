@@ -27,7 +27,11 @@
     }
 
     public timeToString(time: Date): string {
-      return time.toLocaleString();
+      return `${this.zeroPadding(time.getHours())}:${this.zeroPadding(time.getSeconds())}`;
+    }
+
+    public zeroPadding(num: Number): string {
+      return `0${num}`.slice(-2);
     }
   }
 </script>

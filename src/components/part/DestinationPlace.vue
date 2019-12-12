@@ -21,7 +21,7 @@
 
     public timeToString(time?: Date): string {
       if (!time) return "";
-      return `${this.zeroPadding(time.getHours())}:${this.zeroPadding(time.getSeconds())}`;
+      return `${this.zeroPadding(time.getHours())}:${this.zeroPadding(time.getMinutes())}`;
     }
 
     public zeroPadding(num: Number): string {

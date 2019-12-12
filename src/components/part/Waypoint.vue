@@ -1,13 +1,15 @@
 <template>
   <div class="block">
-    経由地<br/>
+    経由地
+    <i class="close right material-icons" @click="handleRemove">close</i>
+    <br/>
     <h1><i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}</h1>
     <h2 class="time">滞在時間：{{stayTime}}</h2>
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue} from "vue-property-decorator";
+  import {Component, Emit, Prop, Vue} from "vue-property-decorator";
   import {Spot} from "@/ToDxService";
 
   @Component
@@ -25,6 +27,14 @@
 
     public zeroPadding(num: Number): string {
       return `0${num}`.slice(-2);
+    }
+
+    @Emit()
+    public remove(spot: Spot): void {
+    }
+
+    public handleRemove() {
+      this.remove(this.spot!);
     }
   }
 </script>

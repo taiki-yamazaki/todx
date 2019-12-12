@@ -6,9 +6,8 @@
     <section class="left-panel">
       <div class="dot"></div>
       <Origin v-if="origin" :address="origin.name"/>
-      <Waypoint v-for="spot in waypoints" :key="'w_' + spot.name" :spot="spot"/>
+      <Waypoint v-for="spot in waypoints" :key="'w_' + spot.name" :spot="spot" @remove="handleRemoveWaypoint"/>
       <RemainingTime v-if="arrivalTime" :arrival-time="arrivalTime"/>
-      <i v-if="!selected" class="add material-icons" onclick="console.log('click')">add_circle</i>
       <SpotDetail v-if="selected" :spot="selected" @register="handleRegister" @close="handleSpotUnselect"/>
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
     </section>
@@ -49,7 +48,7 @@
 
     private dest = {
       name: "南城市役所",
-      position: {lat: 26.1642434, lng:127.7698106},
+      position: {lat: 26.1642434, lng: 127.7698106},
     };
     private arrivalTime = this.plus6Hour(new Date());
 
@@ -62,7 +61,7 @@
     public mounted(): void {
       this.origin = {
         name: "南城市役所",
-        position: {lat: 26.1642434, lng:127.7698106},
+        position: {lat: 26.1642434, lng: 127.7698106},
       };
     }
 
@@ -79,6 +78,11 @@
       this.waypoints.push(spot);
     }
 
+    public handleRemoveWaypoint(spot: Spot): void {
+      this.selected = null;
+      this.waypoints = this.waypoints.filter(w => w !== spot);
+    }
+
     public fetchRecommendedSpots(p: P): void {
       fetchSpots(p)
         .then(spots => this.spots = spots);
@@ -91,8 +95,11 @@
 
     @Watch('waypoints')
     waypointsChanged(next: any, prev: any) {
-      if (next.length === 0) this.fetchRecommendedSpots(this.origin.position);
-      this.fetchRecommendedSpots(next.slice(-1)[0].position);
+      if (next.length === 0) {
+        this.fetchRecommendedSpots(this.origin.position);
+      } else {
+        this.fetchRecommendedSpots(next.slice(-1)[0].position);
+      }
     }
 
     @Watch('origin')

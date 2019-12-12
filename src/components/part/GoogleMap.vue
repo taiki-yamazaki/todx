@@ -36,6 +36,11 @@
     FERRY: "#3f51b5",
   };
 
+  export const ICONS = {
+    spot: "http://maps.google.com/mapfiles/ms/micons/blue-dot.png",
+    food: "http://maps.google.com/mapfiles/ms/micons/ltblue-dot.png"
+  };
+
   export default {
     name: "GoogleMap",
 
@@ -85,7 +90,7 @@
               position: s.position,
               animation: this.google.maps.Animation.DROP,
               title: s.name,
-              icon: "http://maps.google.com/mapfiles/ms/micons/green-dot.png",
+              icon: this.markerIcon(s),
               spot: s
             })
           })
@@ -105,6 +110,10 @@
       strokeColor: function (mode) {
         const color = COLORS[mode];
         return color || "#4caf50";
+      },
+      markerIcon: function (spot) {
+        const icon = ICONS[spot.category];
+        return icon || "http://maps.google.com/mapfiles/ms/micons/green-dot.png";
       },
       select: function (marker) {
         this.$emit("selected", marker.spot);

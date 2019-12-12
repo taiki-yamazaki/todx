@@ -1,7 +1,13 @@
 <template>
   <div class="block">
     <h1>
-      <i :class="[spot.category, `material-icons`]">brightness_1</i>{{spot.name}}
+      <i :class="[spot.category, `material-icons`]">brightness_1</i>
+      <template v-if="spot.url">
+        <a :href="spot.url" target="_blank">{{spot.name}}</a>
+      </template>
+      <template v-else>
+        {{spot.name}}
+      </template>
       <i class="close right material-icons" @click="handleClose">close</i>
     </h1>
     <iframe class="thumbnail" :src="streetMapUrl"/>
@@ -86,7 +92,15 @@
     display: inline;
   }
 
+  .spot {
+    color: #2196f3;
+  }
+
   .food {
+    color: #f44336;
+  }
+
+  .blue {
     color: #2196f3;
   }
 

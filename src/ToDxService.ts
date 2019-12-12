@@ -30,6 +30,15 @@ export async function fetchSpots(p: P): Promise<Array<Spot>> {
     });
 }
 
+export async function fetchSpots2(p: P): Promise<Array<Spot>> {
+  return fetch("https://todx-api.herokuapp.com/get/recommend" +
+    `?latitude=${p.lat}` +
+    `&longitude=${p.lng}` +
+    `&seconds=360000` +
+    `&departure_time=1200`)
+    .then(res => res.json());
+}
+
 
 export type Route = {
   mode: "WALK" | "BUS" | "FERRY";
@@ -49,6 +58,8 @@ export async function fetchRoutes(from: P, to: P, departure: Date): Promise<any>
     .then(res => res.json())
     .then(res => {
       const legs: Array<Route> = [];
+      if (!res || res.routes.length === 0) return legs;
+
       res.routes[0].legs.forEach((l: any) => {
         legs.push({
           mode: l.mode,

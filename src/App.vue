@@ -173,6 +173,8 @@
   }
 
   .credit {
+    user-select: none;
+    pointer-events: none;
     position: fixed;
     right: 70px;
     bottom: 0;

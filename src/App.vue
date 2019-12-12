@@ -11,6 +11,12 @@
       <SpotDetail v-if="selected" :spot="selected" @register="handleRegister" @close="handleSpotUnselect"/>
       <Destination :address="dest.name" :arrival-time="arrivalTime"/>
     </section>
+    <section class="credit">
+      Supported by <a href="https://api.gnavi.co.jp/api/scope/" target="_blank">ぐるなびWebService</a>
+      <a href="https://www.ottop.databed.org/" target="_blank">
+        <img src="https://static.wixstatic.com/media/f3fc6c_cb12feefd69a4732af8f00f2e572deb7~mv2.png/v1/fill/w_318,h_135,al_c,q_80,usm_0.66_1.00_0.01/OTTOP-Logo-blue.webp" alt="ottop">
+      </a>
+    </section>
   </div>
 </template>
 
@@ -123,10 +129,10 @@
         pairs.map(p => fetchRoutes(p[0].position, p[1].position, new Date(1576119600000)))
       )
         .then(results => {
+          console.log(results);
           return results.flatMap(r => r);
         })
         .then((routes: any) => {
-          console.log(routes);
           this.routes = routes
         });
     }
@@ -166,9 +172,9 @@
     user-select: none;
   }
 
-  .add {
-    display: block;
-    text-align: center;
-    font-size: 4rem;
+  .credit {
+    position: fixed;
+    right: 70px;
+    bottom: 0;
   }
 </style>
